@@ -72,12 +72,8 @@ public class RequestManagerTest {
         // Given
         var endpoint = url.concat("1/boards");
         var boardName = "Automation-test-03";
-        var body = """
-                {
-                    "name" : "%s"
-                }""";
+        setBodytoRequest(boardName);
         apiRequest.setParams(params);
-        apiRequest.setBody(String.format(body, boardName));
         apiRequest.setHeaders(headers);
 
 
@@ -96,31 +92,62 @@ public class RequestManagerTest {
     }
 
     @Test
-    @DisplayName("Verifies if DELETE method call correctly")
-    public void verifiesIfDelMethodCallCorrectly() {
+    @DisplayName("Verifies if PUT method call correctly")
+    public void verifiesIfPutMethodCallCorrectly() {
         // Given
-        var id = "6446c5b109c43ae839e47932";
-        var endpoint = url.concat("1/boards/"+id);
-        var boardName = "Automation-test03";
-        apiRequest.setParams(params);
-        apiRequest.setHeaders(headers);
+        var id = createBoard("Automation-test-03");
 
+        //when
+        var endpoint = url.concat("1/boards/".concat(id));
+        var boardName = "Automation-test-03-update";
+        setBodytoRequest(boardName);
+        ApiResponse apiResponse = RequestManager.put(apiRequest, endpoint);
 
-        // When
-        ApiResponse apiResponse = RequestManager.del(apiRequest, endpoint);
-        apiRequest = new ApiRequest();
-        var endpoint1 = url.concat("1/members/me/boards");
-        apiRequest.setParams(params);
-        ApiResponse apiResponse1 = RequestManager.get(apiRequest, endpoint1);
+        //Then
+        Assertions.assertEquals(STATUS_CODE_SUCCESS, apiResponse.getStatusCode(),
+                String.format("Response status code is not 200. Response status cade: %s", apiResponse.getStatusCode()));
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(apiResponse.getBody().contains("comments"),
+                        String.format("Response body does not contain 'comments' string. Response body: %s", apiResponse.getBody())),
+                () -> Assertions.assertEquals(boardName, RequestManagerValidator.getBoardName(apiResponse.getBody()),
+                        String.format("Response body does not contain '%s' string. Response body: %s", boardName, apiResponse.getBody()))
+        );
+    }
+
+    @Test
+    @DisplayName("Verifies if DELETE method call correctly")
+    public void verifiesIfDeleteMethodCallCorrectly() {
+        // Given
+        var id = createBoard("Automation-test-03");
+
+        //When
+        var endpoint = url.concat("1/boards/".concat(id));
+        ApiResponse apiResponse = RequestManager.delete(apiRequest, endpoint);
 
         // Then
         Assertions.assertEquals(STATUS_CODE_SUCCESS, apiResponse.getStatusCode(),
                 String.format("Response status code is not 200. Response status cade: %s", apiResponse.getStatusCode()));
-        Assertions.assertAll(
-                () -> Assertions.assertTrue(apiResponse1.getBody().contains("members"),
-                        String.format("Response body does not contain 'members' string. Response body: %s", apiResponse1.getBody())),
-                () -> Assertions.assertFalse(RequestManagerValidator.ExistId(apiResponse1.getBody(), id),
-                        String.format("Response body contain '%s' id. Id: %s, is not deleted", id, id))
-        );
+        Assertions.assertTrue(apiResponse.getBody().contains("{\"_value\":null}"),
+                String.format("Response body does not contain '{\"_value\":null}' string. Response body: %s", apiResponse.getBody()));
+    }
+
+    private String createBoard(final String boardName){
+        var endpoint = url.concat("1/boards");
+        setBodytoRequest(boardName);
+        apiRequest.setParams(params);
+        apiRequest.setHeaders(headers);
+        ApiResponse apiResponse = RequestManager.post(apiRequest, endpoint);
+
+        return RequestManagerValidator.getId(apiResponse.getBody());
+
+    }
+
+    private void setBodytoRequest(String boardName) {
+        var body = """
+                {
+                    "name" : "%s"
+                }""";
+
+        apiRequest.setBody(String.format(body, boardName));
     }
 }

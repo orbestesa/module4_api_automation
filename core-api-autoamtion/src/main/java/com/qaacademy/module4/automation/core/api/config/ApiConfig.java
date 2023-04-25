@@ -1,6 +1,6 @@
 package com.qaacademy.module4.automation.core.api.config;
 
-import com.qaacademy.module4.automation.core.api.utils.properties.PropertiesFileReader;
+import com.qaacademy.module4.automation.core.utils.properties.PropertiesFileReader;
 
 import java.util.Objects;
 

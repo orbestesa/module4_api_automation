@@ -1,11 +1,9 @@
 package com.qaacademy.module4.automation.core.api.client.validators;
 
-import com.qaacademy.module4.automation.core.api.utils.json.JsonPath;
 
-import java.util.Arrays;
+import com.qaacademy.module4.automation.core.utils.json.JsonPath;
+
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public final class RequestManagerValidator {
 
@@ -27,4 +25,6 @@ public final class RequestManagerValidator {
         List<String> idList = JsonPath.getResultList(json,"$[0:].id").stream().map(String::valueOf).toList();
         return idList.contains(id);
     }
+
+    public static String getId(String json) { return JsonPath.getResult(json, "$.id"); }
 }

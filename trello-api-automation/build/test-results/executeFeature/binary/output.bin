@@ -1,0 +1,37 @@
+
+!@regression @acceptance @boards
+ëScenario: Gets Boards                                             [90m# trello-api-automation/src/test/resources/features/boards.feature:6[0m
+∑  [32mGiven [0m[32mI have a valid key and token[0m                              [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iHaveAValidKeyAndToken()[0m
+›  [32mWhen [0m[32mI sen a request to GET boards endpoint [0m[32m[1m"members/me/boards"[0m [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iSenARequestToGETBoardsEndpoint(java.lang.String)[0m
+Œ  [32mThen [0m[32mThe response status code should be [0m[32m[1m200[0m                     [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseStatusCodeShouldBe(int)[0m
+Ê  [32mAnd [0m[32mThe response should be contain [0m[32m[1m"boards"[0m[32m field[0m               [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseShouldBeContainField(java.lang.String)[0m
+
+;@regression @acceptance @boards @createBoard @deleteBoard
+íScenario: Gets a board                                            [90m# trello-api-automation/src/test/resources/features/boards.feature:12[0m
+∑  [32mGiven [0m[32mI have a valid key and token[0m                              [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iHaveAValidKeyAndToken()[0m
+ﬁ  [32mWhen [0m[32mI send a request to GET a board endpoint [0m[32m[1m"boards/{id}"[0m     [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iSendARequestToGETABoardEndpoint(java.lang.String)[0m
+Œ  [32mThen [0m[32mThe response status code should be [0m[32m[1m200[0m                     [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseStatusCodeShouldBe(int)[0m
+â  [32mAnd [0m[32mThe response should have a field [0m[32m[1m"name"[0m[32m with value [0m[32m[1m"{name}"[0m [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseShouldHaveAFieldWithValue(java.lang.String,java.lang.String)[0m
+
+.@regression @acceptance @boards @deleteBoard
+≠Scenario: Creates a board                                                                    [90m# trello-api-automation/src/test/resources/features/boards.feature:18[0m
+“  [32mGiven [0m[32mI have a valid key and token[0m                                                         [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iHaveAValidKeyAndToken()[0m
+™  [32mWhen [0m[32mI send a request to POST a boards endpoint [0m[32m[1m"boards"[0m[32m with name [0m[32m[1m"example-test2023-post"[0m [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iSendARequestToPOSTABoardsEndpointWithName(java.lang.String,java.lang.String)[0m
+È  [32mThen [0m[32mThe response status code should be [0m[32m[1m200[0m                                                [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseStatusCodeShouldBe(int)[0m
+Å  [32mAnd [0m[32mThe response should be contain [0m[32m[1m"comments"[0m[32m field[0m                                        [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseShouldBeContainField(java.lang.String)[0m
+§  [32mAnd [0m[32mThe response should have a field [0m[32m[1m"name"[0m[32m with value [0m[32m[1m"example-test2023-post"[0m             [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseShouldHaveAFieldWithValue(java.lang.String,java.lang.String)[0m
+
+;@regression @acceptance @boards @createBoard @deleteBoard
+ØScenario: Update a board                                                                       [90m# trello-api-automation/src/test/resources/features/boards.feature:25[0m
+‘  [32mGiven [0m[32mI have a valid key and token[0m                                                           [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iHaveAValidKeyAndToken()[0m
+™  [32mWhen [0m[32mI sen a request to PUT a boards endpoint [0m[32m[1m"boards/{id}"[0m[32m with name [0m[32m[1m"example-test2023-put"[0m [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iSenARequestToPUTABoardsEndpointWithName(java.lang.String,java.lang.String)[0m
+Î  [32mThen [0m[32mThe response status code should be [0m[32m[1m200[0m                                                  [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseStatusCodeShouldBe(int)[0m
+É  [32mAnd [0m[32mThe response should be contain [0m[32m[1m"prefs"[0m[32m field[0m                                             [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseShouldBeContainField(java.lang.String)[0m
+¶  [32mAnd [0m[32mThe response should have a field [0m[32m[1m"name"[0m[32m with value [0m[32m[1m"example-test2023-put"[0m                [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseShouldHaveAFieldWithValue(java.lang.String,java.lang.String)[0m
+
+.@regression @acceptance @boards @createBoard
+íScenario: Delete a board                                          [90m# trello-api-automation/src/test/resources/features/boards.feature:32[0m
+∑  [32mGiven [0m[32mI have a valid key and token[0m                              [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iHaveAValidKeyAndToken()[0m
+‚  [32mWhen [0m[32mI send a request to DELETE a boards endpoint [0m[32m[1m"boards/{id}"[0m [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.iSendARequestToDELETEABoardsEndpoint(java.lang.String)[0m
+Œ  [32mThen [0m[32mThe response status code should be [0m[32m[1m200[0m                     [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseStatusCodeShouldBe(int)[0m
+Ê  [32mAnd [0m[32mThe response should be contain [0m[32m[1m"{\"_value\":null}"[0m[32m field[0m    [90m# com.qaacademy.module4.automation.trello.api.steps.BoardsSteps.theResponseShouldBeContainField(java.lang.String)[0m
